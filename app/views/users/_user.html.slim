@@ -1,4 +1,3 @@
-
 tr
   td
     = user.name
@@ -11,11 +10,11 @@ tr
   td
     = user.monthly_expense_sum
   td
-    = 'balance'
+    = user.balance
   td
     = button_to 'Add Income', new_user_income_path(user), method: :get
   td
-    = button_to 'Add Expence', new_user_expense_path(user), method: :get
+    = button_to 'Add Expense', new_user_expense_path(user), method: :get
   td
     = link_to fa_icon('eye'), user
   td

@@ -4,11 +4,15 @@ class User < ApplicationRecord
   has_many :expenses
 
   def monthly_income_sum
-    incomes.where({ created_at: monthly_time_range }).sum(:amount)
+    incomes.where(created_at: monthly_time_range).sum(:amount)
   end
 
   def monthly_expense_sum
-    expenses.where({ created_at: monthly_time_range }).sum(:amount)
+    expenses.where(created_at: monthly_time_range).sum(:amount)
+  end
+
+  def balance
+    incomes.sum(:amount) - expenses.sum(:amount)
   end
 
   private
