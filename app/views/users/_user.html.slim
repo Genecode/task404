@@ -1,0 +1,18 @@
+
+tr
+  td
+    = user.name
+  td
+    = user.age
+  td
+    = user.address
+  td
+    = button_to 'Add Income', new_user_income_path(user), method: :get
+  td
+    = button_to 'Add Expence', new_user_expense_path(user), method: :get
+  td
+    = link_to fa_icon('eye'), user
+  td
+    = link_to fa_icon('pencil'), edit_user_path(user)
+  td
+    = link_to  fa_icon('trash'), user, method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,0 +1,17 @@
+p#notice
+  = notice
+p
+  strong
+    | Amount:
+  = @expense.amount
+p
+  strong
+    | User:
+  = @expense.user.name
+p
+  strong
+    | Assignment:
+  = @expense.assignment
+= link_to 'Edit', edit_user_expense_path(@expense.user, @expense)
+|  | 
+= link_to 'Back to users', users_path

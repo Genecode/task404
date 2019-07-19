@@ -1,0 +1,16 @@
+= form_with(model: [@user, @income],
+    local: true )  do |form|
+  - if @income.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@income.errors.count, "error")
+        |  prohibited this income from being saved:
+      ul
+        - @income.errors.full_messages.each do |message|
+          li
+            = message
+  .field
+    = form.label :amount
+    = form.text_field :amount
+  .actions
+    = form.submit

@@ -1,0 +1,27 @@
+p#notice
+  = notice
+h1
+  | Incomes
+table
+  thead
+    tr
+      th
+        | Amount
+      th
+        | User
+      th[colspan="3"]
+  tbody
+    - @incomes.each do |income|
+      tr
+        td
+          = income.amount
+        td
+          = income.user
+        td
+          = link_to 'Show', income
+        td
+          = link_to 'Edit', edit_income_path(income)
+        td
+          = link_to 'Destroy', income, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Income', new_income_path

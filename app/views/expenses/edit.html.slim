@@ -1,0 +1,6 @@
+h1
+  | Editing Expense
+= render 'form'
+= link_to 'Show', user_expense_path(@expense.user, @expense)
+|  | 
+= link_to 'Back to users', users_path
