@@ -7,6 +7,12 @@ tr
   td
     = user.address
   td
+    = user.monthly_income_sum
+  td
+    = user.monthly_expense_sum
+  td
+    = 'balance'
+  td
     = button_to 'Add Income', new_user_income_path(user), method: :get
   td
     = button_to 'Add Expence', new_user_expense_path(user), method: :get
