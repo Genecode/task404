@@ -8,5 +8,28 @@ services:
       - POSTGRES_PASSWORD
     volumes:
       - db-data:/var/lib/postgresql/data
+  app:
+    image: task404_app_development
+    build:
+      context: .
+      args:
+        - ADDITIONAL_PACKAGES=nodejs yarn python2 build-base git
+        - EXECJS_RUNTIME=Node
+        - RAILS_ENV=development
+    environment:
+      - SECRET_KEY_BASE=00e6e9c8642ebbef1a7bd38df0e88b7b6911020672f718b13e89b97bdf37ddac77eedfc20c4c60544cd495c9c8a215e823a609389eae817553e6d39c93f085bf
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=foobar123
+      - RAILS_ENV=development
+      - RAILS_MAX_THREADS
+      - APP_HOST
+      - FRONTEND_HOST
+    ports:
+      - "3000"
+    links:
+      - db
+    volumes:
+      - .:/app
 volumes:
   db-data:
