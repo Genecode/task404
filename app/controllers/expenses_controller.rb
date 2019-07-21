@@ -1,9 +1,9 @@
 class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, except: %i[index]
+  before_action :set_user, except: %i[destroy]
 
   def index
-    @expenses = Expense.all
+    @expenses = @user.expenses
   end
 
   def show; end
@@ -18,7 +18,7 @@ class ExpensesController < ApplicationController
     @expense = @user.expenses.build(expense_params)
 
     respond_to do |format|
-      if @expense.save
+      if @expense.add
         format.html { redirect_to user_expense_path(@user, @expense), notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: user_expense_path(@user, @expense) }
       else

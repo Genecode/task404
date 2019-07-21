@@ -1,9 +1,9 @@
 class IncomesController < ApplicationController
   before_action :set_income, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, except:  %i[index]
+  before_action :set_user, except: %i[destroy]
 
   def index
-    @incomes = Income.all
+    @incomes = @user.incomes
   end
 
   def show; end
@@ -20,7 +20,7 @@ class IncomesController < ApplicationController
     @income = @user.incomes.build(income_params)
 
     respond_to do |format|
-      if @income.save
+      if @income.add
         format.html { redirect_to user_income_path(@user, @income), notice: 'Income was successfully created.' }
         format.json { render :show, status: :created, location: user_income_path(@user, @income) }
       else

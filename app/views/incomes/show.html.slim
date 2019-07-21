@@ -7,7 +7,7 @@ p
 p
   strong
     | User:
-  = @income.user
+  = @income.user.name
 = link_to 'Edit', edit_user_income_path(@user, @income)
-|  | 
+|  |
 = link_to 'Back to users', users_path
