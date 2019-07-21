@@ -1,0 +1,13 @@
+tr
+  td
+    = income.created_at
+  td
+    = income.amount
+  td
+    = income.user.name
+  td
+    = link_to 'Show', user_incomes_path(@user, income)
+  td
+    = link_to 'Edit', edit_user_income_path(@user, income)
+  td
+    = link_to 'Destroy', user_incomes_path(@user, income), method: :delete, data: { confirm: 'Are you sure?' }

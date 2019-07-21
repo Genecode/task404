@@ -1,0 +1,13 @@
+tr
+  td
+    = expense.created_at
+  td
+    = expense.amount
+  td
+    = expense.assignment
+  td
+    = link_to 'Show', user_expense_path(@user, expense)
+  td
+    = link_to 'Edit', edit_user_expense_path(@user, expense)
+  td
+    = link_to 'Destroy', user_expense_path(@user, expense), method: :delete, data: { confirm: 'Are you sure?' }

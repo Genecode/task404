@@ -1,31 +1,18 @@
 p#notice
   = notice
 h1
-  | Expenses
+  | Expenses for user: #{@user.name}
 table
   thead
     tr
       th
-        | Amount
+        | Created
       th
-        | User
+        | Amount
       th
         | Assignment
       th[colspan="3"]
   tbody
-    - @expenses.each do |expence|
-      tr
-        td
-          = expense.amount
-        td
-          = expense.user
-        td
-          = expense.assignment
-        td
-          = link_to 'Show', expense
-        td
-          = link_to 'Edit', edit_expense_path(expence)
-        td
-          = link_to 'Destroy', expense, method: :delete, data: { confirm: 'Are you sure?' }
+    = render @expenses
 br
-= link_to 'New Expense', new_expense_path
+= link_to 'New Expense', new_user_expense_path(@user)
