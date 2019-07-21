@@ -2,25 +2,18 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
 
 development:
   <<: *default
   database: task404_development
-  username: myapp
-  password: qwaserdf12
-  host: localhost
-  port: 5432
 
 test:
   <<: *default
   database: task404_test
-  username: myapp
-  password: qwaserdf12
-  host: localhost
-  port: 5432
 
 production:
   <<: *default
   database: task404_production
-  username: postgres
-  password: <%= ENV['VIEWER_API_DATABASE_PASSWORD'] %>
