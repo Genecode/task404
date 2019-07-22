@@ -1,25 +1,20 @@
 class User < ApplicationRecord
   validates :name, :address, :age, presence: true
+  validates :age, numericality: { greater_than: 0 }
+
   has_many :incomes
   has_many :expenses
 
   def monthly_income_sum
-    incomes.where(created_at: monthly_time_range).sum(:amount)
+    MonthlyIncomeService.call(user: self, time: Time.now)
   end
 
   def monthly_expense_sum
-    expenses.where(created_at: monthly_time_range).sum(:amount)
+    MonthlyExpenseService.call(user: self, time: Time.now)
   end
 
   def balance
-    # incomes.sum(:amount) - expenses.sum(:amount)
     UserBalanceService.call(self)
   end
 
-  private
-
-  def monthly_time_range
-    current_time = DateTime.current
-    current_time.beginning_of_month..current_time
-  end
 end
