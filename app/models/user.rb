@@ -12,7 +12,8 @@ class User < ApplicationRecord
   end
 
   def balance
-    incomes.sum(:amount) - expenses.sum(:amount)
+    # incomes.sum(:amount) - expenses.sum(:amount)
+    UserBalanceService.call(self)
   end
 
   private
