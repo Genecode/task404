@@ -1,0 +1,43 @@
+version: '3.4'
+services:
+  db:
+    image: postgres:10.4-alpine
+    environment:
+      - POSTGRES_PASSWORD
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444
+      - 5900:5900
+  app:
+    image: task404_app_test
+    build:
+      context: .
+      args:
+        - ADDITIONAL_PACKAGES=nodejs yarn
+        - EXECJS_RUNTIME=Node
+        - BUNDLE_WITHOUT=production
+        - RAILS_ENV=test
+    environment:
+      SELENIUM_REMOTE_HOST: selenium
+      RAILS_ENV: test
+      DB_HOST: db
+      POSTGRES_PASSWORD: test1
+      SECRET_KEY_BASE: 00e6e9c8642ebbef1a7bd38df0e88b7b6911020672f718b13e89b97bdf37ddac77eedfc20c4c60544cd495c9c8a215e823a609389eae817553e6d39c93f085bf
+      DB_USER: postgres
+      DB_PASSWORD: test1
+      APP_ADMIN_EMAIL: admin@example.org
+      APP_ADMIN_PASSWORD: secret
+      APP_EMAIL: reply@example.org
+      APP_HOST: example.org
+    ports:
+      - "3000"
+    links:
+      - db
+      - selenium
+    volumes:
+      - .:/app
+volumes:
+  db-data:
