@@ -1,6 +1,7 @@
 class Expense < ApplicationRecord
   belongs_to :user
   validates :amount, :assignment, presence: true
+  validates :amount, numericality: { greater_than: 0 }
 
   def add
     set_timestamp!

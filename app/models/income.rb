@@ -1,6 +1,7 @@
 class Income < ApplicationRecord
   belongs_to :user
   validates :amount, presence: true
+  validates :amount, numericality: { greater_than: 0 }
 
   def add
     set_timestamp!
