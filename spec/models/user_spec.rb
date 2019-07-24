@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) { FactoryBot.create(:user) }
   let(:user2) {FactoryBot.create(:user) }
+  let(:correct_range) {
+    Time.now.beginning_of_month.to_f .. Time.now.to_f
+  }
+  let(:incorrect_range) {
+    Time.now.months_ago(2).to_f ... Time.now.beginning_of_month.to_f
+  }
+
   context '#balance' do
     it 'calculate correct balance for user' do
       inc_arr = Array.new(10) { "#{rand(999)}.#{rand(99)}".to_d }
@@ -43,7 +50,7 @@ RSpec.describe User, type: :model do
           :income,
           user:user,
           amount: amount,
-          created_at: Faker::Time.between(Time.current.beginning_of_month, Time.current))
+          created_at: Time.at(rand(correct_range)))
       end
 
       arr_now.each do |amount|
@@ -51,7 +58,7 @@ RSpec.describe User, type: :model do
           :income,
           user:user,
           amount: amount,
-          created_at: Faker::Time.between(Time.current.months_ago(2), Time.current.beginning_of_month - 1))
+          created_at: Time.at(rand(incorrect_range)))
       end
 
       expect(user.monthly_income_sum).to eq(arr_now.sum.to_d)
@@ -73,7 +80,7 @@ RSpec.describe User, type: :model do
           :expense,
           user:user,
           amount: amount,
-          created_at: Faker::Time.between(Time.current.beginning_of_month, Time.current))
+          created_at: Time.at(rand(correct_range)))
       }
 
       arr_now.each { |amount|
@@ -81,7 +88,7 @@ RSpec.describe User, type: :model do
           :expense,
           user:user,
           amount: amount,
-          created_at: Faker::Time.between(Time.current.months_ago(1), Time.current.beginning_of_month - 1))
+          created_at: Time.at(rand(incorrect_range)))
       }
 
       expect(user.monthly_expense_sum).to eq(arr_now.sum.to_d)

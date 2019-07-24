@@ -6,11 +6,11 @@ class User < ApplicationRecord
   has_many :expenses
 
   def monthly_income_sum
-    MonthlyIncomeService.call(user: self, time: Time.now)
+    MonthlyIncomeService.call(user: self, time: Time.current)
   end
 
   def monthly_expense_sum
-    MonthlyExpenseService.call(user: self, time: Time.now)
+    MonthlyExpenseService.call(user: self, time: Time.current)
   end
 
   def balance

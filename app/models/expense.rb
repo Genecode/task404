@@ -24,7 +24,7 @@ class Expense < ApplicationRecord
   end
 
   def set_timestamp!
-    self.created_at = self.updated_at = Time.now
+    self.created_at = self.updated_at = Time.current
   end
 
 end
